@@ -41,8 +41,8 @@ class DatabaseHelper {
     String databasePath =
         join(await getDatabasesPath(), 'cashbook.db'); // Path database utama
 
-    // Salin database ke file backup
-    String backupPath = join(backupDirPath, 'cashbook_backup.db');
+    // Salin database ke file backup dengan ekstensi .sqlite
+    String backupPath = join(backupDirPath, 'cashbook_backup.sqlite');
     File databaseFile = File(databasePath);
 
     // Memastikan file database utama ada sebelum mencoba menyalinnya

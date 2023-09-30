@@ -25,10 +25,31 @@ class _SettingsScreenState extends State<SettingsScreen> {
     String newPassword = _newPasswordController.text;
     String confirmPassword = _confirmPasswordController.text;
 
+    int minLengthPassword = 8;
     User? user = await _databaseHelper.getUserByUsername(widget.username);
 
     if (user != null && user.password == currentPassword) {
-      if (newPassword == confirmPassword) {
+      if (newPassword.length < minLengthPassword) {
+        // Menampilkan pesan jika jumlah karakter kurang dari yang diinginkan
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('Error'),
+              content: Text(
+                  'Password harus memiliki setidaknya $minLengthPassword karakter.'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
+      } else if (newPassword == confirmPassword) {
         // Simpan password baru ke dalam database
         user.password = newPassword;
         await _databaseHelper.updateUser(user);
@@ -39,8 +60,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: Text('Success'),
-              content: Text('Password has been changed successfully.'),
+              title: Text('Berhasil'),
+              content: Text('Kata sandi telah berhasil diubah.'),
               actions: [
                 TextButton(
                   onPressed: () {
@@ -61,7 +82,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
           builder: (context) {
             return AlertDialog(
               title: Text('Error'),
-              content: Text('New password and confirm password do not match.'),
+              content: Text(
+                  'Password baru dan password konfirmasi tidak cocok.'),
               actions: [
                 TextButton(
                   onPressed: () {
@@ -151,6 +173,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
             obscureText: true,
             decoration: InputDecoration(labelText: 'Konfirmasi Password Baru'),
           ),
+          if (!_isCurrentPasswordCorrect)
+            Padding(
+              padding: EdgeInsets.only(top: 10.0),
+              child: Text(
+                'Password saat ini salah. Silakan coba lagi.',
+                style: TextStyle(color: Colors.red, fontSize: 16.0),
+              ),
+            ),
           ElevatedButton(
             onPressed: _changePassword,
             child: Text('Ubah Password'),
@@ -158,15 +188,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ElevatedButton(
             onPressed: _exportDatabase,
             child: Text('Export Database'),
+            style: ElevatedButton.styleFrom(primary: Colors.green),
           ),
-          if (!_isCurrentPasswordCorrect)
-            Padding(
-              padding: EdgeInsets.only(top: 16.0),
-              child: Text(
-                'Password saat ini salah. Silakan coba lagi.',
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
           Spacer(),
           Padding(
             padding: EdgeInsets.only(bottom: 16.0),
