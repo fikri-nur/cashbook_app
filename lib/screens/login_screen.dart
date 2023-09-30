@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:cashbook_app/models/user.dart';
 import 'package:cashbook_app/helpers/database_helper.dart';
 import 'package:cashbook_app/screens/register_screen.dart';
+import 'package:cashbook_app/screens/home_screen.dart';
+import 'package:cashbook_app/helpers/user_provider.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -22,7 +25,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (user != null && user.password == password) {
       // Jika autentikasi berhasil, lanjutkan ke halaman beranda
-      Navigator.pushNamed(context, '/home');
+      Provider.of<UserProvider>(context, listen: false)
+          .setLoggedInUser(username);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomeScreen(),
+        ),
+      );
     } else {
       // Jika autentikasi gagal, tampilkan pesan error
       showDialog(
@@ -65,7 +75,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 200,
                 ),
                 SizedBox(height: 20),
-                Text('Cashbook App', style: TextStyle(fontSize: 30), textAlign: TextAlign.center),
+                Text('Cashbook App',
+                    style: TextStyle(fontSize: 30),
+                    textAlign: TextAlign.center),
                 SizedBox(height: 30),
                 TextField(
                   controller: _usernameController,

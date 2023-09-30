@@ -1,7 +1,7 @@
+import 'package:cashbook_app/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cashbook_app/helpers/database_helper.dart';
 import 'package:cashbook_app/models/user.dart';
-import 'package:cashbook_app/screens/login_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
