@@ -9,7 +9,7 @@ class DatabaseHelper {
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
   static Database? _database;
 
-  // Tambahkan konstruktor tanpa nama (unnamed constructor)
+  // konstruktor tanpa nama
   DatabaseHelper();
 
   Future<Database> get database async {
@@ -24,16 +24,22 @@ class DatabaseHelper {
   }
 
   Future<String> exportDatabase() async {
-    Directory appDocDir = await getApplicationDocumentsDirectory();
+    // Dapatkan direktori penyimpanan eksternal
+    Directory? externalDir = await getExternalStorageDirectory();
+    if (externalDir == null) {
+      throw FileSystemException("External storage directory not found");
+    }
+
     String backupDirPath =
-        join(appDocDir.path, 'backup'); // Lokasi direktori backup
+        join(externalDir.path, 'CashbookBackup'); // Nama direktori backup
 
     // Periksa apakah direktori backup sudah ada. Jika tidak, buat direktori tersebut.
     if (!(await Directory(backupDirPath).exists())) {
       await Directory(backupDirPath).create(recursive: true);
     }
 
-    String databasePath = join(appDocDir.path, 'cashbook.db');
+    String databasePath =
+        join(await getDatabasesPath(), 'cashbook.db'); // Path database utama
 
     // Salin database ke file backup
     String backupPath = join(backupDirPath, 'cashbook_backup.db');
@@ -70,11 +76,13 @@ class DatabaseHelper {
     ''');
   }
 
+  // Menambahkan user baru
   Future<int> insertUser(User user) async {
     Database db = await instance.database;
     return await db.insert('users', user.toMap());
   }
 
+  // Memeriksa login user
   Future<User?> getUserByUsername(String username) async {
     Database db = await instance.database;
     List<Map<String, dynamic>> users = await db.query('users',
@@ -87,12 +95,14 @@ class DatabaseHelper {
     }
   }
 
+  // Mengupdate password user
   Future<int> updateUser(User user) async {
     Database db = await instance.database;
     return await db
         .update('users', user.toMap(), where: 'id = ?', whereArgs: [user.id]);
   }
 
+  // Menambahkan transaksi income
   Future<int> insertIncome(
       String date, double amount, String description) async {
     Database db = await instance.database;
@@ -105,6 +115,7 @@ class DatabaseHelper {
     return await db.insert('transactions', row);
   }
 
+  // Menambahkan transaksi outcome
   Future<int> insertOutcome(
       String date, double amount, String description) async {
     Database db = await instance.database;
@@ -117,6 +128,7 @@ class DatabaseHelper {
     return await db.insert('transactions', row);
   }
 
+  // Mendapatkan semua transaksi
   Future<List<Map<String, dynamic>>> queryAllTransactions() async {
     Database db = await instance.database;
     return await db.query('transactions');

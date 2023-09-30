@@ -7,14 +7,20 @@ import 'package:cashbook_app/screens/cashflow_screen.dart';
 import 'package:cashbook_app/screens/settings_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:cashbook_app/helpers/user_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-void main() => runApp(
-      ChangeNotifierProvider(
-        create: (context) => UserProvider(),
-        child: MyApp(),
-      ),
-    );
-// void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Permission.storage.request(); // Meminta izin akses penyimpanan
+
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => UserProvider(),
+      child: MyApp(),
+    ),
+  );
+}
+
 
 class MyApp extends StatelessWidget {
   @override
