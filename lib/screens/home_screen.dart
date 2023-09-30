@@ -1,12 +1,14 @@
-
 import 'package:flutter/material.dart';
 import 'package:cashbook_app/helpers/user_provider.dart';
 import 'package:cashbook_app/helpers/database_helper.dart';
 import 'package:cashbook_app/screens/login_screen.dart';
+import 'package:cashbook_app/screens/income_screen.dart';
+import 'package:cashbook_app/screens/outcome_screen.dart';
+import 'package:cashbook_app/screens/cashflow_screen.dart';
+import 'package:cashbook_app/screens/settings_screen.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
-  
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -54,39 +56,45 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Text('Hello, $loggedInUser!', style: TextStyle(fontSize: 24)),
+              SizedBox(height: 10),
+              Text(
+                'Rangkuman Bulan ini',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 5),
+              Text(
+                'Pengeluaran: Rp.${totalOutcome}0',
+                style: TextStyle(fontSize: 18, color: Colors.red) ,
+              ),
+              SizedBox(height: 5),
+              Text(
+                'Pemasukan: Rp.${totalIncome}0',
+                style: TextStyle(fontSize: 18, color: Colors.green),
+              ),
+              SizedBox(height: 10),
               Image.asset(
                 'assets/icon/line-chart.png',
                 width: 200,
                 height: 200,
               ),
               SizedBox(height: 20),
-              Text('Hello, $loggedInUser!', style: TextStyle(fontSize: 24)),
-              SizedBox(height: 20),
-              Text(
-                'Pemasukan Bulan Ini: $totalIncome',
-                style: TextStyle(fontSize: 18),
-              ),
-              Text(
-                'Pengeluaran Bulan Ini: $totalOutcome',
-                style: TextStyle(fontSize: 18),
-              ),
-              SizedBox(height: 30),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   _buildMenuButton(context, 'Pemasukan', () {
                     // Navigasi ke halaman tambah pemasukan
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => IncomeScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => IncomeScreen()));
                   }, 'assets/icon/income.png', true), // Tambahkan true di sini
                   _buildMenuButton(context, 'Pengeluaran', () {
                     // Navigasi ke halaman tambah pengeluaran
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => OutcomeScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => OutcomeScreen()));
                   }, 'assets/icon/outcome.png',
                       true), // Tambahkan path ikon untuk tambah pengeluaran
                 ],
@@ -97,15 +105,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   _buildMenuButton(context, 'Cash Flow', () {
                     // Navigasi ke halaman detail cash flow
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => CashFlowScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CashFlowScreen()));
                   }, 'assets/icon/cashflow.png',
                       true), // Tambahkan path ikon untuk detail cash flow
                   _buildMenuButton(context, 'Pengaturan', () {
                     // Navigasi ke halaman pengaturan
-                    // Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen(username: loggedInUser,)));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SettingsScreen(
+                                  username: loggedInUser,
+                                )));
                   }, 'assets/icon/settings.png',
                       true), // Tambahkan path ikon untuk pengaturan
                 ],
