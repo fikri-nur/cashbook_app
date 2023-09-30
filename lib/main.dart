@@ -4,6 +4,7 @@ import 'package:cashbook_app/screens/home_screen.dart';
 import 'package:cashbook_app/screens/income_screen.dart';
 import 'package:cashbook_app/screens/outcome_screen.dart';
 import 'package:cashbook_app/screens/cashflow_screen.dart';
+import 'package:cashbook_app/screens/settings_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:cashbook_app/helpers/user_provider.dart';
 
@@ -30,6 +31,9 @@ class MyApp extends StatelessWidget {
         '/income': (context) => IncomeScreen(),
         '/outcome': (context) => OutcomeScreen(),
         '/cashflow': (context) => CashFlowScreen(),
+        '/settings': (context) => SettingsScreen(
+              username: Provider.of<UserProvider>(context).loggedInUser,
+            )
       },
     );
   }
