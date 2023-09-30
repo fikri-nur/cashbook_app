@@ -82,8 +82,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
           builder: (context) {
             return AlertDialog(
               title: Text('Error'),
-              content: Text(
-                  'Password baru dan password konfirmasi tidak cocok.'),
+              content:
+                  Text('Password baru dan password konfirmasi tidak cocok.'),
               actions: [
                 TextButton(
                   onPressed: () {
@@ -150,75 +150,81 @@ class _SettingsScreenState extends State<SettingsScreen> {
       appBar: AppBar(
         title: Text('Pengaturan'),
       ),
-      body: ListView(
+      body: SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
-        children: [
-          Text('Username: ${widget.username}', style: TextStyle(fontSize: 24)),
-          SizedBox(height: 10.0),
-          Text('Ubah Password', style: TextStyle(fontSize: 18)),
-          TextField(
-            controller: _currentPasswordController,
-            obscureText: true,
-            decoration: InputDecoration(labelText: 'Password Saat Ini'),
-          ),
-          SizedBox(height: 5.0),
-          TextField(
-            controller: _newPasswordController,
-            obscureText: true,
-            decoration: InputDecoration(labelText: 'Password Baru'),
-          ),
-          SizedBox(height: 5.0),
-          TextField(
-            controller: _confirmPasswordController,
-            obscureText: true,
-            decoration: InputDecoration(labelText: 'Konfirmasi Password Baru'),
-          ),
-          if (!_isCurrentPasswordCorrect)
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text('Username: ${widget.username}',
+                style: TextStyle(fontSize: 24)),
+            SizedBox(height: 10.0),
+            Text('Ubah Password', style: TextStyle(fontSize: 18)),
+            TextField(
+              controller: _currentPasswordController,
+              obscureText: true,
+              decoration: InputDecoration(labelText: 'Password Saat Ini'),
+            ),
+            SizedBox(height: 5.0),
+            TextField(
+              controller: _newPasswordController,
+              obscureText: true,
+              decoration: InputDecoration(labelText: 'Password Baru'),
+            ),
+            SizedBox(height: 5.0),
+            TextField(
+              controller: _confirmPasswordController,
+              obscureText: true,
+              decoration:
+                  InputDecoration(labelText: 'Konfirmasi Password Baru'),
+            ),
+            if (!_isCurrentPasswordCorrect)
+              Padding(
+                padding: EdgeInsets.only(top: 10.0),
+                child: Text(
+                  'Password saat ini salah. Silakan coba lagi.',
+                  style: TextStyle(color: Colors.red, fontSize: 16.0),
+                ),
+              ),
+            ElevatedButton(
+              onPressed: _changePassword,
+              child: Text('Ubah Password'),
+            ),
+            ElevatedButton(
+              onPressed: _exportDatabase,
+              child: Text('Export Database'),
+              style: ElevatedButton.styleFrom(primary: Colors.green),
+            ),
+            Spacer(),
             Padding(
-              padding: EdgeInsets.only(top: 10.0),
-              child: Text(
-                'Password saat ini salah. Silakan coba lagi.',
-                style: TextStyle(color: Colors.red, fontSize: 16.0),
+              padding: EdgeInsets.only(bottom: 16.0),
+              child: Column(
+                children: [
+                  SizedBox(height: 16.0),
+                  CircleAvatar(
+                    radius: 50,
+                    backgroundImage: AssetImage('assets/logo/2141764163.jpg'),
+                  ),
+                  SizedBox(height: 16.0),
+                  Text('Aplikasi ini dibuat oleh:',
+                      style: TextStyle(fontSize: 20.0)),
+                  Text(
+                    'Nama: Amiruddin Fikri Nur',
+                    style: TextStyle(fontSize: 16.0),
+                  ),
+                  Text(
+                    'NIM: 2141764163',
+                    style: TextStyle(fontSize: 16.0),
+                  ),
+                  Text(
+                    'Tanggal: 30 September 2023',
+                    style: TextStyle(fontSize: 16.0),
+                  ),
+                ],
               ),
             ),
-          ElevatedButton(
-            onPressed: _changePassword,
-            child: Text('Ubah Password'),
-          ),
-          ElevatedButton(
-            onPressed: _exportDatabase,
-            child: Text('Export Database'),
-            style: ElevatedButton.styleFrom(primary: Colors.green),
-          ),
-          Spacer(),
-          Padding(
-            padding: EdgeInsets.only(bottom: 16.0),
-            child: Column(
-              children: [
-                SizedBox(height: 16.0),
-                CircleAvatar(
-                  radius: 50,
-                  backgroundImage: AssetImage('assets/logo/2141764163.jpg'),
-                ),
-                SizedBox(height: 16.0),
-                Text('Aplikasi ini dibuat oleh:',
-                    style: TextStyle(fontSize: 20.0)),
-                Text(
-                  'Nama: Amiruddin Fikri Nur',
-                  style: TextStyle(fontSize: 16.0),
-                ),
-                Text(
-                  'NIM: 2141764163',
-                  style: TextStyle(fontSize: 16.0),
-                ),
-                Text(
-                  'Tanggal: 30 September 2023',
-                  style: TextStyle(fontSize: 16.0),
-                ),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
