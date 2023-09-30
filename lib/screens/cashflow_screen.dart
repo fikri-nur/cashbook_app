@@ -17,7 +17,8 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
   }
 
   void _loadTransactions() async {
-    List<Map<String, dynamic>> transactions = await _databaseHelper.queryAllTransactions();
+    List<Map<String, dynamic>> transactions =
+        await _databaseHelper.queryAllTransactions();
     setState(() {
       _transactions = transactions;
     });
@@ -43,12 +44,13 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
             iconColor = Colors.red;
           }
           return ListTile(
-            leading: Icon(
+            title: Text('Amount: Rp.${transaction['amount']}0'),
+            subtitle: Text(
+                'Date: ${transaction['date']}\nDescription: ${transaction['description']}'),
+            trailing: Icon(
               icon,
               color: iconColor,
             ),
-            title: Text('Amount: ${transaction['amount']}'),
-            subtitle: Text('Date: ${transaction['date']}\nDescription: ${transaction['description']}'),
           );
         },
       ),
