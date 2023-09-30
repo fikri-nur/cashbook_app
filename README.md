@@ -1,16 +1,9 @@
-# cashbook_app
+## cashbook_app
 
-A new Flutter project.
+Proyek ini digunakan untuk Sertifikasi BNSP Pemrograman Mobile 2023/
+Dibuat oleh:
+Nama    : Amiruddin Fikri Nur
+NIM     : 2141764163
+Kelas   : SIB - 4D
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+NB: Hasil export file SQLITE ada di dalam folder sqlite
