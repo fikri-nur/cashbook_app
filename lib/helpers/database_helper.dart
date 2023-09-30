@@ -25,14 +25,27 @@ class DatabaseHelper {
 
   Future<String> exportDatabase() async {
     Directory appDocDir = await getApplicationDocumentsDirectory();
+    String backupDirPath =
+        join(appDocDir.path, 'backup'); // Lokasi direktori backup
+
+    // Periksa apakah direktori backup sudah ada. Jika tidak, buat direktori tersebut.
+    if (!(await Directory(backupDirPath).exists())) {
+      await Directory(backupDirPath).create(recursive: true);
+    }
+
     String databasePath = join(appDocDir.path, 'cashbook.db');
 
-    // Copy database to a new file
-    String backupPath = join(appDocDir.path, 'cashbook_backup.db');
+    // Salin database ke file backup
+    String backupPath = join(backupDirPath, 'cashbook_backup.db');
     File databaseFile = File(databasePath);
-    databaseFile.copySync(backupPath);
 
-    return backupPath;
+    // Memastikan file database utama ada sebelum mencoba menyalinnya
+    if (databaseFile.existsSync()) {
+      databaseFile.copySync(backupPath);
+      return backupPath;
+    } else {
+      throw FileSystemException("Database file not found");
+    }
   }
 
   Future<void> _onCreate(Database db, int version) async {

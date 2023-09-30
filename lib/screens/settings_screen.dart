@@ -81,6 +81,47 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
+  Future<void> _exportDatabase() async {
+    try {
+      String exportedPath = await _databaseHelper.exportDatabase();
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Database Exported'),
+            content: Text('Database has been exported to: $exportedPath'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text('Failed to export database: $e'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,30 +132,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
         padding: EdgeInsets.all(16.0),
         children: [
           Text('Username: ${widget.username}', style: TextStyle(fontSize: 24)),
-          SizedBox(height: 16.0),
+          SizedBox(height: 10.0),
           Text('Ubah Password', style: TextStyle(fontSize: 18)),
-          SizedBox(height: 12.0),
           TextField(
             controller: _currentPasswordController,
             obscureText: true,
             decoration: InputDecoration(labelText: 'Password Saat Ini'),
           ),
-          SizedBox(height: 12.0),
+          SizedBox(height: 5.0),
           TextField(
             controller: _newPasswordController,
             obscureText: true,
             decoration: InputDecoration(labelText: 'Password Baru'),
           ),
-          SizedBox(height: 12.0),
+          SizedBox(height: 5.0),
           TextField(
             controller: _confirmPasswordController,
             obscureText: true,
             decoration: InputDecoration(labelText: 'Konfirmasi Password Baru'),
           ),
-          SizedBox(height: 12.0),
           ElevatedButton(
             onPressed: _changePassword,
             child: Text('Ubah Password'),
+          ),
+          ElevatedButton(
+            onPressed: _exportDatabase,
+            child: Text('Export Database'),
           ),
           if (!_isCurrentPasswordCorrect)
             Padding(
