@@ -29,8 +29,9 @@ class _OutcomeScreenState extends State<OutcomeScreen> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Invalid Input'),
-            content: Text('Please enter valid date, amount, and description.'),
+            title: Text('Masukan Tidak Valid'),
+            content: Text(
+                'Silakan masukkan tanggal, jumlah, dan keterangan yang valid.'),
             actions: [
               TextButton(
                 onPressed: () {
@@ -50,7 +51,7 @@ class _OutcomeScreenState extends State<OutcomeScreen> {
       // Menampilkan snackbar jika data berhasil disimpan
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Outcome saved successfully!'),
+          content: Text('Pengeluaran berhasil disimpan!'),
         ),
       );
     }
@@ -61,7 +62,9 @@ class _OutcomeScreenState extends State<OutcomeScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text('Add Outcome'),
+        title: Text(
+          'Tambah Pengeluaran',
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -88,25 +91,20 @@ class _OutcomeScreenState extends State<OutcomeScreen> {
                     });
                   }
                 },
-                decoration: InputDecoration(labelText: 'Date'),
+                decoration: InputDecoration(labelText: 'Tanggal'),
               ),
               SizedBox(height: 16.0),
               TextField(
                 controller: _amountController,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'Amount'),
+                decoration: InputDecoration(labelText: 'Nominal'),
               ),
               SizedBox(height: 16.0),
               TextField(
                 controller: _descriptionController,
-                decoration: InputDecoration(labelText: 'Description'),
+                decoration: InputDecoration(labelText: 'Keterangan'),
               ),
               SizedBox(height: 32.0),
-              ElevatedButton(
-                onPressed: _saveOutcome,
-                child: Text('Save Outcome'),
-              ),
-              SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {
                   _resetFields();
@@ -115,10 +113,21 @@ class _OutcomeScreenState extends State<OutcomeScreen> {
               ),
               SizedBox(height: 16.0),
               ElevatedButton(
+                onPressed: _saveOutcome,
+                child: Text('Simpan'),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.green,
+                )
+              ),
+              SizedBox(height: 16.0),
+              ElevatedButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/home');
                 },
-                child: Text('Back'),
+                child: Text('Kembali'),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.grey,
+                )
               ),
             ],
           ),

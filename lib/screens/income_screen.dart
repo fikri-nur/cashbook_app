@@ -29,8 +29,8 @@ class _IncomeScreenState extends State<IncomeScreen> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Invalid Input'),
-            content: Text('Please enter valid date, amount, and description.'),
+            title: Text('Masukan Tidak Valid'),
+            content: Text('Silakan masukkan tanggal, jumlah, dan keterangan yang valid.'),
             actions: [
               TextButton(
                 onPressed: () {
@@ -50,7 +50,7 @@ class _IncomeScreenState extends State<IncomeScreen> {
       // Menampilkan snackbar jika data berhasil disimpan
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Income saved successfully!'),
+          content: Text('Pemasukkan berhasil disimpan!'),
         ),
       );
     }
@@ -61,7 +61,7 @@ class _IncomeScreenState extends State<IncomeScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text('Add Income'),
+        title: Text('Tambah Pemasukan'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -88,25 +88,20 @@ class _IncomeScreenState extends State<IncomeScreen> {
                     });
                   }
                 },
-                decoration: InputDecoration(labelText: 'Date'),
+                decoration: InputDecoration(labelText: 'Tanggal'),
               ),
               SizedBox(height: 16.0),
               TextField(
                 controller: _amountController,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'Amount'),
+                decoration: InputDecoration(labelText: 'Nominal'),
               ),
               SizedBox(height: 16.0),
               TextField(
                 controller: _descriptionController,
-                decoration: InputDecoration(labelText: 'Description'),
+                decoration: InputDecoration(labelText: 'Keterangan'),
               ),
               SizedBox(height: 32.0),
-              ElevatedButton(
-                onPressed: _saveIncome,
-                child: Text('Save Income'),
-              ),
-              SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {
                   _resetFields();
@@ -115,10 +110,21 @@ class _IncomeScreenState extends State<IncomeScreen> {
               ),
               SizedBox(height: 16.0),
               ElevatedButton(
+                onPressed: _saveIncome,
+                child: Text('Simpan'),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.green,
+                )
+              ),
+              SizedBox(height: 16.0),
+              ElevatedButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/home');
                 },
                 child: Text('Kembali'),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.grey,
+                )
               ),
             ],
           ),

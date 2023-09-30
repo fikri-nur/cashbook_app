@@ -36,20 +36,24 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
           Map<String, dynamic> transaction = _transactions[index];
           IconData icon;
           Color iconColor;
+          Text text;
           if (transaction['type'] == 'income') {
-            icon = Icons.arrow_downward;
+            icon = Icons.arrow_back;
             iconColor = Colors.green;
+            text = Text ('[ + ] Pemasukan: Rp.${transaction['amount']}0', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold));
           } else {
-            icon = Icons.arrow_upward;
+            icon = Icons.arrow_forward;
             iconColor = Colors.red;
+            text = Text ('[ - ] Pengeluaran: Rp.${transaction['amount']}0', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold));
           }
           return ListTile(
-            title: Text('Amount: Rp.${transaction['amount']}0'),
+            title: text,
             subtitle: Text(
-                'Date: ${transaction['date']}\nDescription: ${transaction['description']}'),
+                'Tanggal: ${transaction['date']}\nKeterangan: ${transaction['description']}', style: TextStyle(color: Colors.black, )),
             trailing: Icon(
               icon,
               color: iconColor,
+              size: 32.0,
             ),
           );
         },

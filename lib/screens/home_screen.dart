@@ -56,27 +56,54 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Hello, $loggedInUser!', style: TextStyle(fontSize: 24)),
+              Text('Hello, $loggedInUser!',
+                  style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.w500,
+                      fontSize: 24)),
               SizedBox(height: 10),
               Text(
                 'Rangkuman Bulan ini',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w700,
+                    fontSize: 20),
               ),
               SizedBox(height: 5),
               Text(
                 'Pengeluaran: Rp.${totalOutcome}0',
-                style: TextStyle(fontSize: 18, color: Colors.red) ,
+                style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.red,
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w500),
               ),
               SizedBox(height: 5),
               Text(
                 'Pemasukan: Rp.${totalIncome}0',
-                style: TextStyle(fontSize: 18, color: Colors.green),
+                style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.green,
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w500),
               ),
               SizedBox(height: 10),
-              Image.asset(
-                'assets/icon/line-chart.png',
+              Container(
                 width: 200,
                 height: 200,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.brown, // Warna border (bisa disesuaikan)
+                    width: 2.0, // Lebar border (bisa disesuaikan)
+                  ),
+                ),
+                child: Image.asset(
+                  'assets/icon/line-chart.png',
+                  width:
+                      196, // Ukuran gambar sedikit lebih kecil dari lebar container untuk memperlihatkan border
+                  height:
+                      196, // Ukuran gambar sedikit lebih kecil dari tinggi container untuk memperlihatkan border
+                ),
               ),
               SizedBox(height: 20),
               Row(
@@ -149,7 +176,11 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         SizedBox(height: 8), // Jarak antara ikon dan teks
-        Text(text),
+        Text(text,
+            style: TextStyle(
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.w500,
+                fontSize: 16)),
       ],
     );
   }
