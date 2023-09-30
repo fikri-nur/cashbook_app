@@ -39,8 +39,8 @@ class _LoginScreenState extends State<LoginScreen> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Authentication Failed'),
-            content: Text('Invalid username or password.'),
+            title: Text('Otentikasi gagal'),
+            content: Text('username atau password salah.'),
             actions: [
               TextButton(
                 onPressed: () {

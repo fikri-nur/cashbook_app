@@ -16,15 +16,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void _registerUser() async {
     String username = _usernameController.text;
     String password = _passwordController.text;
-
+    int minLengthUsername = 4;
+    int minLengthPassword = 8;
     if (username.isEmpty || password.isEmpty) {
       // Menampilkan pesan jika input kosong
       showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Invalid Input'),
-            content: Text('Please enter both username and password.'),
+            title: Text('Error'),
+            content: Text('Username dan password harus diisi.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    } else if (username.length < minLengthUsername ||
+        password.length < minLengthPassword) {
+      // Menampilkan pesan jika jumlah karakter kurang dari yang diinginkan
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text(
+                'Username harus memiliki setidaknya $minLengthUsername karakter, dan password harus memiliki setidaknya $minLengthPassword karakter.'),
             actions: [
               TextButton(
                 onPressed: () {
@@ -106,7 +128,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   height: 200,
                 ),
                 SizedBox(height: 20),
-                Text('Cashbook App', style: TextStyle(fontSize: 30), textAlign: TextAlign.center),
+                Text('Cashbook App',
+                    style: TextStyle(fontSize: 30),
+                    textAlign: TextAlign.center),
                 SizedBox(height: 30),
                 TextField(
                   controller: _usernameController,
