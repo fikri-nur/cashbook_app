@@ -133,8 +133,8 @@ class _HomeScreenState extends State<HomeScreen> {
     return Column(
       children: [
         Container(
-          width: 64, // Lebar gambar
-          height: 64, // Tinggi gambar
+          width: 72, // Lebar gambar
+          height: 72, // Tinggi gambar
           margin: isIncomeButton
               ? EdgeInsets.only(right: 12)
               : EdgeInsets.zero, // Margin hanya untuk tombol "Tambah Pemasukan"
@@ -145,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           child: IconButton(
             onPressed: onPressed,
-            icon: Image.asset(iconPath, height: 32), // Lebar ikon
+            icon: Image.asset(iconPath, height: 36), // Lebar ikon
           ),
         ),
         SizedBox(height: 8), // Jarak antara ikon dan teks
