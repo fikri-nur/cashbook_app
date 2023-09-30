@@ -5,7 +5,7 @@ class User {
 
   User({this.id, required this.username, required this.password});
 
-  // Convert user object to a map
+  // Konversi objek user menjadi map
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -14,7 +14,7 @@ class User {
     };
   }
 
-  // Convert a map to a user object
+  // Konversi map menjadi objek user
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
       id: map['id'],

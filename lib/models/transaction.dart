@@ -2,7 +2,7 @@ class Transaction {
   int? id;
   String type; // 'income' atau 'outcome'
   double amount;
-  String date; // Format: 'dd-mm-yyyy'
+  String date;
   String description;
 
   Transaction({
