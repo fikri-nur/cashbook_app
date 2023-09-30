@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:cashbook_app/screens/login_screen.dart';
+import 'package:cashbook_app/screens/home_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:cashbook_app/helpers/user_provider.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(
+      ChangeNotifierProvider(
+        create: (context) => UserProvider(),
+        child: MyApp(),
+      ),
+    );
+// void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
@@ -14,7 +23,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/login',
       routes: {
         '/login': (context) => LoginScreen(),
-        // '/settings': (context) => SettingsScreen(userId: 1,),
+        '/home': (context) => HomeScreen(),
       },
     );
   }
