@@ -63,62 +63,65 @@ class _IncomeScreenState extends State<IncomeScreen> {
         automaticallyImplyLeading: false,
         title: Text('Add Income'),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            TextField(
-              controller: _dateController,
-              readOnly: true,
-              onTap: () async {
-                DateTime? pickedDate = await showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(2000),
-                  lastDate: DateTime(2100),
-                );
-                if (pickedDate != null) {
-                  String formattedDate =
-                      "${pickedDate.day}-${pickedDate.month}-${pickedDate.year}";
-                  setState(() {
-                    _dateController.text = formattedDate;
-                  });
-                }
-              },
-              decoration: InputDecoration(labelText: 'Date'),
-            ),
-            SizedBox(height: 16.0),
-            TextField(
-              controller: _amountController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: 'Amount'),
-            ),
-            SizedBox(height: 16.0),
-            TextField(
-              controller: _descriptionController,
-              decoration: InputDecoration(labelText: 'Description'),
-            ),
-            SizedBox(height: 32.0),
-            ElevatedButton(
-              onPressed: _saveIncome,
-              child: Text('Save Income'),
-            ),
-            SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () {
-                _resetFields();
-              },
-              child: Text('Reset'),
-            ),
-            SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/home');
-              },
-              child: Text('Kembali'),
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: _dateController,
+                readOnly: true,
+                onTap: () async {
+                  DateTime? pickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(2000),
+                    lastDate: DateTime(2100),
+                  );
+                  if (pickedDate != null) {
+                    String formattedDate =
+                        "${pickedDate.day}-${pickedDate.month}-${pickedDate.year}";
+                    setState(() {
+                      _dateController.text = formattedDate;
+                    });
+                  }
+                },
+                decoration: InputDecoration(labelText: 'Date'),
+              ),
+              SizedBox(height: 16.0),
+              TextField(
+                controller: _amountController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(labelText: 'Amount'),
+              ),
+              SizedBox(height: 16.0),
+              TextField(
+                controller: _descriptionController,
+                decoration: InputDecoration(labelText: 'Description'),
+              ),
+              SizedBox(height: 32.0),
+              ElevatedButton(
+                onPressed: _saveIncome,
+                child: Text('Save Income'),
+              ),
+              SizedBox(height: 16.0),
+              ElevatedButton(
+                onPressed: () {
+                  _resetFields();
+                },
+                child: Text('Reset'),
+              ),
+              SizedBox(height: 16.0),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/home');
+                },
+                child: Text('Kembali'),
+              ),
+            ],
+          ),
         ),
       ),
     );
