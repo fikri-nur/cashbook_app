@@ -1,5 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
 import 'package:cashbook_app/models/user.dart';
 
 class DatabaseHelper {
@@ -19,6 +21,18 @@ class DatabaseHelper {
   Future<Database> _initDatabase() async {
     String path = join(await getDatabasesPath(), 'cashbook.db');
     return await openDatabase(path, version: 1, onCreate: _onCreate);
+  }
+
+  Future<String> exportDatabase() async {
+    Directory appDocDir = await getApplicationDocumentsDirectory();
+    String databasePath = join(appDocDir.path, 'cashbook.db');
+
+    // Copy database to a new file
+    String backupPath = join(appDocDir.path, 'cashbook_backup.db');
+    File databaseFile = File(databasePath);
+    databaseFile.copySync(backupPath);
+
+    return backupPath;
   }
 
   Future<void> _onCreate(Database db, int version) async {
@@ -60,10 +74,10 @@ class DatabaseHelper {
     }
   }
 
-    Future<int> updateUser(User user) async {
+  Future<int> updateUser(User user) async {
     Database db = await instance.database;
-    return await db.update('users', user.toMap(),
-        where: 'id = ?', whereArgs: [user.id]);
+    return await db
+        .update('users', user.toMap(), where: 'id = ?', whereArgs: [user.id]);
   }
 
   Future<int> insertIncome(
